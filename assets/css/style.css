@@ -70,7 +70,17 @@ section {
 }
 
 .quiz-list {
-    display: none;
-    flex-direction: column;
-    flex-wrap: wrap;
+    /* flex-direction: row;
+    flex-wrap: wrap; */
+}
+
+h3 {
+    display: inline;
+}
+
+.timer-count {
+    display: inline;
+    font-size: 1.5em;
+    margin-right: 10px;
+    font-weight: bolder;
 }
