@@ -10,8 +10,8 @@
 <body>
 <header>
     <nav><a href="highscores.html">View Highscores</a></nav>
-    <div class="timer">
-        <div class="timer-text">
+    <div>
+        <div class="timer-text" id="timer">
             <div id="timer-count">60</div>
             <h3>seconds remaining</h3>
         </div>
@@ -27,7 +27,7 @@
 
     <!-- Quiz page -->
     <div class="quiz" hidden>
-        <h1 class="question">Do you know the answer to this sample question?</h1>
+        <h1 id="live-question">Do you know the answer to this sample question?</h1>
         <div class="choice-box">
             <button class="answer" id="choice1">This is Answer 1.</button>
         </div>
