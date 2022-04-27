@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Quiz</title>
+    <link rel="stylesheet" type="text/css" href="/assets/style.css" />
+</head>
+<body>
+<header>
+    <nav><a href="highscores.html">View Highscores</a></nav>
+    <div class="timer">
+        <div class="timer-text">
+            <div id="timer-count">60</div>
+            <h3>seconds remaining</h3>
+        </div>
+    </div>
+</header>
+<main>
+    <!-- Landing page -->
+    <div class="intro">
+        <h1 class="page-title">Code Quiz Challenge</h1>
+        <p class="opening-paragraph">Do you have the knowledge to become a coding quiz master? Click the start button below to find out!</p>
+        <button id="start-button">Start Quiz</button>
+    </div>
+
+    <!-- Quiz page -->
+    <div class="quiz" hidden>
+        <h1 class="question">Do you know the answer to this sample question?</h1>
+        <div class="choice-box">
+            <button class="answer" id="choice1">This is Answer 1.</button>
+        </div>
+        <div class="choice-box">
+            <button class="answer" id="choice2">This is Answer 2.</button>
+        </div>
+        <div class="choice-box">
+            <button class="answer" id="choice3">This is Answer 3.</button>
+        </div>
+        <div class="choice-box">
+            <button class="answer" id="choice4">This is Answer 4.</button>
+        </div>
+    </div>
+
+    <!-- Results page -->
+    <section class="results" hidden>
+        <h1 class="results">Here is your score.</h1>
+    </section>
+
+    <!-- Highscores page -->
+    <section class="highscores" hidden>
+    </section>
+</main>
+<script src="assets/script.js"></script>
+</body>
+</html>
