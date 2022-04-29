@@ -71,9 +71,10 @@ var questionsList = [
         ]
     },
 ];
+var timerInterval;
 
 function setTime() {
-    var timerInterval = setInterval(function() {
+    timerInterval = setInterval(function() {
         secondsLeft--;
         timer.textContent = secondsLeft;
 
@@ -84,7 +85,7 @@ function setTime() {
             sendMessage();
             return;
         }
-    }, 100);
+    }, 1000);
 };
 
 function playGame() {
@@ -101,6 +102,7 @@ function renderQuestion() {
     //If the questions array is empty, the game is over
     if(questionsArray.length === 0){
         console.log("There are no more questions.")
+        clearInterval(timerInterval);
         timerBox.setAttribute("hidden", true);
         sendMessage();
         return;
@@ -205,28 +207,59 @@ function sendMessage() {
             alert("Entry is blank")
         } else {
             console.log("Initials and score stored!")
+            init();
 
-            var initialplusHighScore = [initials, score];
-            console.log (initialplusHighScore);
+            var userEntry = initials + " " + score;
+            highScoresArray.push(userEntry);
+            localStorage.setItem ("highscore", JSON.stringify(highScoresArray))
+            renderHighscore(highScoresArray);
 
-            localStorage.setItem("highscore", initialplusHighScore)
-            highScoresArray.push(initialplusHighScore);
+        //     if (localStorage.getItem("highscore")){
+        //         for (var i = 0; i < localStorage.length; i++) {
+        //             // var lsScore = localStorage[i].getItem("highscore");
+        //             // console.log(lsScore)
+        //             var key = localStorage.key(i);
+        //             var info = localStorage.getItem(key);
+        //             highScoresArray.push(info)
+        //         }
+        //         // highScoresArray.push(JSON.parse(localStorage.getItem("highscore")));
+        //         highScoresArray.push({initials, score});
+        //         for (var i = 0; i < highScoresArray.length; i++) {
+        //             localStorage.setItem([i], JSON.stringify(highScoresArray[i]))
+        //         }
 
-            console.log (highScoresArray);
+        //         renderHighscore(highScoresArray);
+        //     } else {
+        //         highScoresArray.push({initials, score});
+                
+        //         for (var i = 0; i < highScoresArray.length; i++) {
+        //             localStorage.setItem([i], JSON.stringify(highScoresArray[i]))
+        //         }
 
-            renderHighscore();
+        //         renderHighscore(highScoresArray);
+        //     }
+        //     // var initialplusHighScore = [initials, score];
+        //     // console.log (initialplusHighScore);
+            
+        //     // for (var i = 0; i < highScoresArray.length; i++) {
+        //     //     localStorage.setItem(i, highScoresArray[i])
+        //     // }
+        //     // console.log (highScoresArray);
+
         }
     })
 
-function renderHighscore() {
+function renderHighscore(array) {
     resultsSection.setAttribute("hidden", true);
     highScoresSection.removeAttribute("hidden");
-    for (var i=0; i < highScoresArray.length; i++) {
-        var highScoreEntry= highScoresArray[i];
-        highScoreEntry = highScoreEntry.join(' ');
+    console.log(array);
+    
 
+    for (var i=0; i < array.length; i++) {
+        // highScoreEntry = highScoreEntry.join(' ');
+        var userEntry = array[i];
         var li = document.createElement("li");
-        li.textContent = highScoreEntry;
+        li.textContent = userEntry;
         li.setAttribute("data-index", i);
 
         highScoresSection.appendChild(li);
@@ -244,7 +277,8 @@ function init() {
         highScoresArray = storedHighscores;
     }
 
-    renderHighscore();
+    // renderHighscore(storedHighscores);
+
 }
 
 
