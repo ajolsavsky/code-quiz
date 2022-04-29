@@ -17,6 +17,11 @@ var questionsArray = [];
 var score = 0;
 var currentQuestion = {};
 
+var results = document.getElementById("final-results");
+var submitScoreButton = document.getElementById("submit-score");
+
+var highScoresArray = [];
+var highScoresSection = document.querySelector(".highscores");
 
 startButton.addEventListener("click", function () {
     console.log("The button was clicked.");
@@ -30,7 +35,6 @@ var secondsLeft = timer.textContent;
 
 var questionsList = [
     {
-        id: 0,
         question: "What is my name?",
         answers: [
             { text: "Alex", isCorrect: true },
@@ -40,7 +44,6 @@ var questionsList = [
         ]
     },
     {
-		id: 1,
         question: "What is 30/3?",
 		answers: [
             { text: "3", isCorrect: false },
@@ -50,7 +53,6 @@ var questionsList = [
         ]
     },
     {
-		id: 2,
         question: "Sample question three",
 		answers: [
             { text: "Sample 1", isCorrect: false },
@@ -60,7 +62,6 @@ var questionsList = [
         ]
     },
     {
-		id: 3,
         question: "Sample question four",
 		answers: [
             { text: "Sample 1", isCorrect: false },
@@ -185,7 +186,69 @@ choice4.addEventListener("click", function() {
 
 //Score screen
 function sendMessage() {
+    //Hides quiz screen and displays results form
     quizSection.setAttribute("hidden", true);
     resultsSection.removeAttribute("hidden");
     console.log("The game is over.")
+    //Displays final score
+    results.textContent = "Your final score is " + score + "!"
 };
+
+
+    submitScoreButton.addEventListener("click", function(event) {
+        event.preventDefault();
+        
+        var initials = document.getElementById("initials").value;
+        
+        if (initials === "") {
+            console.log("Entry is blank")
+            alert("Entry is blank")
+        } else {
+            console.log("Initials and score stored!")
+
+            var initialplusHighScore = [initials, score];
+            console.log (initialplusHighScore);
+
+            localStorage.setItem("highscore", initialplusHighScore)
+            highScoresArray.push(initialplusHighScore);
+
+            console.log (highScoresArray);
+
+            renderHighscore();
+        }
+    })
+
+function renderHighscore() {
+    resultsSection.setAttribute("hidden", true);
+    highScoresSection.removeAttribute("hidden");
+    for (var i=0; i < highScoresArray.length; i++) {
+        var highScoreEntry= highScoresArray[i];
+        highScoreEntry = highScoreEntry.join(' ');
+
+        var li = document.createElement("li");
+        li.textContent = highScoreEntry;
+        li.setAttribute("data-index", i);
+
+        highScoresSection.appendChild(li);
+
+        console.log(highScoresArray);
+    }
+}
+
+
+
+function init() {
+    var storedHighscores = JSON.parse(localStorage.getItem("highscore"));
+
+    if (storedHighscores !== null) {
+        highScoresArray = storedHighscores;
+    }
+
+    renderHighscore();
+}
+
+
+//Questions:
+//When I subtract from the timer and get a question wrong, it goes into the negative intagers?
+//Button conditions seem redundant, how do I fix this? For loop?
+//Final score is appended twice because timer ends and final question ends?

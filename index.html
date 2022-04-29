@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Quiz</title>
-    <link rel="stylesheet" type="text/css" href="/assets/style.css" />
+    <link rel="stylesheet" type="text/css" href="assets/style.css" />
 </head>
 <body>
 <header>
-    <nav><a href="highscores.html">View Highscores</a></nav>
+    <!-- <nav><a href="highscores.html">View Highscores</a></nav> -->
     <div>
         <div class="timer-text" id="timer">
             <div id="timer-count">60</div>
@@ -44,11 +44,19 @@
 
     <!-- Results page -->
     <section class="results" hidden>
-        <h1 class="results">Here is your score.</h1>
+        <h1 id="final-results"></h1>
+        <form method="POST">
+            <div class="initials">
+                <label for="initials">Initials</label>
+                <input type="text" name="initials" id="initials" placeholder="RGB" />
+            </div>
+            <button id="submit-score">Submit Score</button>
+        </form>
     </section>
 
     <!-- Highscores page -->
     <section class="highscores" hidden>
+        <p>Highscores:</p>
     </section>
 </main>
 <script src="assets/script.js"></script>
