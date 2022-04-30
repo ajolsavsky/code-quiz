@@ -23,54 +23,111 @@ var submitScoreButton = document.getElementById("submit-score");
 var highScoresArray = [];
 var highScoresSection = document.querySelector(".highscores");
 
+//Start button events
 startButton.addEventListener("click", function () {
-    console.log("The button was clicked.");
     setTime();
     playGame();
 }
 );
 
+//Gets timer text
 var secondsLeft = timer.textContent;
 
-
+//Array of questions for quiz
 var questionsList = [
     {
-        question: "What is my name?",
+        question: "Inside which HTML element do we put the JavaScript?",
         answers: [
-            { text: "Alex", isCorrect: true },
-            { text: "Greg", isCorrect: false },
-            { text: "Joe", isCorrect: false},
-            { text: "Tina", isCorrect: false}
+            { text: "<scripting>", isCorrect: true },
+            { text: "<js>", isCorrect: false },
+            { text: "<javascript>", isCorrect: false},
+            { text: "<script>", isCorrect: false}
         ]
     },
     {
-        question: "What is 30/3?",
+        question: "What is the correct JavaScript syntax to change the content of this HTML element? <p id='demo'>This is a demonstration.</p>",
 		answers: [
-            { text: "3", isCorrect: false },
-            { text: "10", isCorrect: true },
-            { text: "88", isCorrect: false},
-            { text: "164", isCorrect: false}
+            { text: "#demo.innerHTML = 'Hello World!';", isCorrect: false },
+            { text: "document.getElementByID('demo').innerHTML = 'Hello World!';", isCorrect: true },
+            { text: "document.getElement('p').innerHTML = 'Hello World!';", isCorrect: false},
+            { text: "document.getElementByName('p').innerHTML = 'Hello World!';", isCorrect: false}
         ]
     },
     {
-        question: "Sample question three",
+        question: "Where is the correct place to insert a JavaScript?",
 		answers: [
-            { text: "Sample 1", isCorrect: false },
-            { text: "Sample 2", isCorrect: false },
-            { text: "Sample TRUE", isCorrect: true },
-            { text: "Sample 4", isCorrect: false}
+            { text: "Both the <head> section and the <body> section are correct", isCorrect: false },
+            { text: "The <body> section", isCorrect: true },
+            { text: "The <head> section", isCorrect: false },
+            { text: "In a separate document", isCorrect: false }
         ]
     },
     {
-        question: "Sample question four",
+        question: "What is the correct syntax for referring to an external script called 'xxx.js'?",
 		answers: [
-            { text: "Sample 1", isCorrect: false },
-            { text: "Sample 2", isCorrect: false },
-            { text: "Sample 3", isCorrect: false },
-            { text: "Sample TRUE", isCorrect: true }
+            { text: "<script name='xxx.js'>", isCorrect: false },
+            { text: "<script href='xxx.js'>", isCorrect: true },
+            { text: "<script src='xxx.js'>", isCorrect: false },
+            { text: "<script class='xxx.js'>", isCorrect: false }
         ]
     },
+    {
+        question: "How do you write 'Hello World' in an alert box?",
+		answers: [
+            { text: "alert('Hello World');", isCorrect: true },
+            { text: "msgBox('Hello World');'>", isCorrect: false },
+            { text: "msg('Hello World');", isCorrect: false },
+            { text: "alertBox('Hello World');", isCorrect: false }
+        ]
+    },
+    {
+        question: "How do you create a function in JavaScript?",
+		answers: [
+            { text: "function = myFunction()", isCorrect: false },
+            { text: "function:myFunction()", isCorrect: false },
+            { text: "function myFunction()", isCorrect: true },
+            { text: "function.myFunction()", isCorrect: false }
+        ]
+    },
+    {
+        question: "How do you call a function named 'myFunction'?",
+		answers: [
+            { text: "myFunction()", isCorrect: true },
+            { text: "call function myFunction()", isCorrect: false },
+            { text: "call myFunction()", isCorrect: false },
+            { text: "myFunction", isCorrect: false }
+        ]
+    },
+    {
+        question: "How to write an IF statement in JavaScript?",
+		answers: [
+            { text: "if i == 5 then", isCorrect: false },
+            { text: "if i = 5 then", isCorrect: false },
+            { text: "if(i == 5)", isCorrect: true },
+            { text: "if i = 5", isCorrect: false }
+        ]
+    },
+    {
+        question: "How to write an IF statement for executing some code if 'i' is NOT equal to 5?",
+		answers: [
+            { text: "if(i <> 5)", isCorrect: false },
+            { text: "if i <> 5", isCorrect: false },
+            { text: "if (i !=5)", isCorrect: true },
+            { text: "if i =! 5 then", isCorrect: false }
+        ]
+    },
+    {
+        question: "How does a FOR loop start?",
+		answers: [
+            { text: "for (i <= 5; i++)", isCorrect: false },
+            { text: "for (i = 0; i <= 5; i++)", isCorrect: true },
+            { text: "for (i = 0; i <= 5)", isCorrect: false },
+            { text: "for i = 1 to 5", isCorrect: false }
+        ]
+    }
 ];
+
+//Countdown function
 var timerInterval;
 
 function setTime() {
@@ -88,8 +145,8 @@ function setTime() {
     }, 1000);
 };
 
+
 function playGame() {
-    console.log("The game has started.");
     //Changes displays to remove intro section and display game
     introSection.setAttribute("hidden", true);
     quizSection.removeAttribute("hidden");
@@ -98,10 +155,10 @@ function playGame() {
     renderQuestion();
 };
 
+
 function renderQuestion() {
     //If the questions array is empty, the game is over
     if(questionsArray.length === 0){
-        console.log("There are no more questions.")
         clearInterval(timerInterval);
         timerBox.setAttribute("hidden", true);
         sendMessage();
@@ -137,12 +194,9 @@ function renderQuestion() {
 //Assigns conditions to each button
 choice1.addEventListener("click", function() {
     if (choice1.value === "true") {
-        console.log("This answer was correct.");
         //Adds 10 points to score total
         score += 10;
-        console.log("The current score is " + score)
     } else {
-        console.log("This answer was incorrect.");
         //Removes 10 seconds from the timer
         secondsLeft -= 10;
     }
@@ -152,11 +206,8 @@ choice1.addEventListener("click", function() {
 
 choice2.addEventListener("click", function() {
     if (choice2.value === "true") {
-        console.log("This answer was correct.")
         score += 10;
-        console.log("The current score is " + score)
     } else {
-        console.log("This answer was incorrect.")
         secondsLeft -= 10;
     }
     renderQuestion()
@@ -164,11 +215,8 @@ choice2.addEventListener("click", function() {
 
 choice3.addEventListener("click", function() {
     if (choice3.value === "true") {
-        console.log("This answer was correct.")
         score += 10;
-        console.log("The current score is " + score)
     } else {
-        console.log("This answer was incorrect.")
         secondsLeft -= 10;
     }
     renderQuestion()
@@ -176,11 +224,8 @@ choice3.addEventListener("click", function() {
 
 choice4.addEventListener("click", function() {
     if (choice4.value === "true") {
-        console.log("This answer was correct.")
         score += 10;
-        console.log("The current score is " + score)
     } else {
-        console.log("This answer was incorrect.")
         secondsLeft -= 10;
     }
     renderQuestion()
@@ -191,7 +236,6 @@ function sendMessage() {
     //Hides quiz screen and displays results form
     quizSection.setAttribute("hidden", true);
     resultsSection.removeAttribute("hidden");
-    console.log("The game is over.")
     //Displays final score
     results.textContent = "Your final score is " + score + "!"
 };
@@ -203,10 +247,8 @@ function sendMessage() {
         var initials = document.getElementById("initials").value;
         
         if (initials === "") {
-            console.log("Entry is blank")
-            alert("Entry is blank")
+            alert("Entry is blank - please write your initials!")
         } else {
-            console.log("Initials and score stored!")
             init();
 
             var userEntry = initials + " " + score;
@@ -214,57 +256,21 @@ function sendMessage() {
             localStorage.setItem ("highscore", JSON.stringify(highScoresArray))
             renderHighscore(highScoresArray);
 
-        //     if (localStorage.getItem("highscore")){
-        //         for (var i = 0; i < localStorage.length; i++) {
-        //             // var lsScore = localStorage[i].getItem("highscore");
-        //             // console.log(lsScore)
-        //             var key = localStorage.key(i);
-        //             var info = localStorage.getItem(key);
-        //             highScoresArray.push(info)
-        //         }
-        //         // highScoresArray.push(JSON.parse(localStorage.getItem("highscore")));
-        //         highScoresArray.push({initials, score});
-        //         for (var i = 0; i < highScoresArray.length; i++) {
-        //             localStorage.setItem([i], JSON.stringify(highScoresArray[i]))
-        //         }
-
-        //         renderHighscore(highScoresArray);
-        //     } else {
-        //         highScoresArray.push({initials, score});
-                
-        //         for (var i = 0; i < highScoresArray.length; i++) {
-        //             localStorage.setItem([i], JSON.stringify(highScoresArray[i]))
-        //         }
-
-        //         renderHighscore(highScoresArray);
-        //     }
-        //     // var initialplusHighScore = [initials, score];
-        //     // console.log (initialplusHighScore);
-            
-        //     // for (var i = 0; i < highScoresArray.length; i++) {
-        //     //     localStorage.setItem(i, highScoresArray[i])
-        //     // }
-        //     // console.log (highScoresArray);
-
         }
     })
 
 function renderHighscore(array) {
     resultsSection.setAttribute("hidden", true);
     highScoresSection.removeAttribute("hidden");
-    console.log(array);
     
 
     for (var i=0; i < array.length; i++) {
-        // highScoreEntry = highScoreEntry.join(' ');
         var userEntry = array[i];
         var li = document.createElement("li");
         li.textContent = userEntry;
         li.setAttribute("data-index", i);
 
         highScoresSection.appendChild(li);
-
-        console.log(highScoresArray);
     }
 }
 
@@ -276,13 +282,4 @@ function init() {
     if (storedHighscores !== null) {
         highScoresArray = storedHighscores;
     }
-
-    // renderHighscore(storedHighscores);
-
 }
-
-
-//Questions:
-//When I subtract from the timer and get a question wrong, it goes into the negative intagers?
-//Button conditions seem redundant, how do I fix this? For loop?
-//Final score is appended twice because timer ends and final question ends?
