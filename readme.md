@@ -38,7 +38,7 @@ THEN I can save my initials and my score
 
 Here is an example of the final page.
 
-![screenshot of finished page](./Assets/screenshot.png)
+![screenshot of finished page](/assets/screenshot.png)
 
 ## Credits
 
